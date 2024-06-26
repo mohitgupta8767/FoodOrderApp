@@ -10,7 +10,7 @@ import { StripeWrapper } from "../../components/PaymentForm";
 
 const Cart = () => {
     const cart = useSelector(cartProducts);
-    const tabs= ['Summary', 'Delivery', 'Payment'];
+    const tabs= ['Summary', 'Delivery'];
     const [currentTab, handleTabSwitch] = useTabSwitch(tabs, 'Summary');
 
     if (!cart || cart.length === 0) {
@@ -33,9 +33,9 @@ const Cart = () => {
             <div className={`tabs ${currentTab !== 'Delivery' ? 'hidden' : ''}`}>
                 <AddressForm onTabSwitch={handleTabSwitch}/>
             </div>
-            <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
+            {/* <div className={`tabs ${currentTab !== 'Payment' ? 'hidden' : ''}`}>
                 <StripeWrapper />
-            </div>
+            </div> */}
         </div>
     )
 }

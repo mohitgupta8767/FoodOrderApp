@@ -6,7 +6,7 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
             <div className="flex flex-col items-center justify-between">
                 <h2 className="text-3xl">{product.name}</h2>
                 <p className="text-2xl text-gray-500">
-                    {product.desciption}
+                    {product.description}
                 </p>
                 <div className="flex items-center justify-between">
                     <div className="text-3xl text-black">{product.price}</div>
@@ -16,7 +16,7 @@ const ProductDetailCard = ({ product, onAddProduct }) => {
                 <img src={product.imageUrl} className="w-40 h-40 rounded-xl object-cover" alt={product.name} />
             </div>
             <div className="w-full flex items-center justify-center">
-                <Button onCick={onAddProduct}>Add to Cart</Button>
+                <Button onClick={() => onAddProduct(product)}>Add to Cart</Button>
             </div>
         </div>
     )

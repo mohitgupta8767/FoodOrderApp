@@ -13,17 +13,16 @@ const Menu = () => {
 
     useEffect(() => {
         dispatch(fetchProducts())
-    }, [])
+    }, [dispatch]);
 
     const onAddProduct = (product) => {
-        dispatch(addToCart(product))
+        dispatch(addToCart(product));
     }
 
     const onTabSwitch = (newActiveTab) => {
         setActiveTab(newActiveTab);
-        let categories = products.products.map((product) => product.name.name);
-        let index = categories.findIndex(category => newActiveTab === category);
-        console.log(index);
+        const categories = products.products.map((product) => product.name.name);
+        const index = categories.findIndex(category => newActiveTab === category);
         if (index > -1) {
             setActiveTabIndex(index);
         } else {
@@ -33,29 +32,30 @@ const Menu = () => {
 
     return (
         <div className="bg-white">
-           {
-            products.status !== 'fulfilled' ?
-            <div>loading...</div> :
-            <div className="menu-wrapper">
-                {
-                    products.products &&
-                    <Tabs
-                        list={products.products.map((product) => product.name.name)}
-                        activeTab={activeTab}
-                        onTabSwitch={onTabSwitch}
+            {
+                products.status !== 'fulfilled' ?
+                <div>loading...</div> :
+                <div className="menu-wrapper">
+                    {
+                        products.products &&
+                        <Tabs
+                            list={products.products.map((product) => product.name.name)}
+                            activeTab={activeTab}
+                            onTabSwitch={onTabSwitch}
                         />
-                }
-                <div className="flex flex-row mx-3">
-                {
-                    products.products && products.products[activeTabIndex].products.map((product, index) => {
-                        return (
-                           <ProductDetailCard key={index} product={product} onAddProduct={onAddProduct}/>
-                        )
-                    })
-                }
+                    }
+                    {
+                        products.products && products.products[activeTabIndex] &&
+                        <div className="flex flex-row mx-3">
+                            {
+                                products.products[activeTabIndex].products.map((product, index) => (
+                                    <ProductDetailCard key={index} product={product} onAddProduct={onAddProduct} />
+                                ))
+                            }
+                        </div>
+                    }
                 </div>
-            </div>
-           }
+            }
         </div>
     )
 }

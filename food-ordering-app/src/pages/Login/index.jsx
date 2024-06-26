@@ -11,6 +11,11 @@ const Login = () => {
     let navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const onSubmit = (data) => {
         setLoading(true);
@@ -68,14 +73,23 @@ const Login = () => {
                         <label 
                         htmlFor="password"
                         className="block text-lg font-medium text-gray-200">Password</label>
-                        <input 
-                        {...register('password')}
-                        id="password"
-                        type="password"
-                        className="block appearance-none w-full px-3 py-2 border border-gray-300 roundedn-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-200 focus:border-gray-200"
-                        />
+                        <div className="relative">
+                            <input 
+                            {...register('password')}
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            className="block appearance-none w-full px-3 py-2 border border-gray-300 roundedn-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-200 focus:border-gray-200"
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5"
+                            >
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+                        </div>
                     </div>
-                    <Button size="large">{loading ? "loading" : 'Register'}</Button>
+                    <Button size="large">{loading ? "loading" : 'Log In'}</Button>
                 </form>
                 <ToastContainer />
                 </div>
